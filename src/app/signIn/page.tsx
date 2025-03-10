@@ -1,20 +1,20 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { auth } from "../../../firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { useRouter } from "next/router";
 import { FcGoogle } from "react-icons/fc";
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { toast } from "react-toastify";
-import { useAuthState } from "react-firebase-hooks/auth";
+// import { useAuthState } from "react-firebase-hooks/auth";
 import { redirect } from "next/navigation";
+
+
 const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
 
-//   const router = useRouter();
-  const [user, loading] = useAuthState(auth);
+  // const [user, loading] = useAuthState(auth);
   //sign in with google
   const googleProvider = new GoogleAuthProvider();
 
@@ -35,12 +35,12 @@ const SignUp = () => {
 
   const SignInbtn = async () => {
     try {
-      const res = await signInWithPopup(auth, googleProvider);
+      await signInWithPopup(auth, googleProvider);
      
       toast.success("Successfully logged in.")
       
       redirect('/')
-    } catch (err) {
+    } catch {
       toast.error("Authentication Failed", {
         position: "top-center",
         hideProgressBar: true,
